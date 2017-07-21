@@ -6,9 +6,15 @@
  */
 
 /*
- * SOURCES:
- * http://millionthvector.blogspot.de/p/free-sprites.html
- * https://opengameart.org/content/wgstudio-fire-animation-loop
+ * ART SOURCES:
+ * Projectiles: 	http://millionthvector.blogspot.de/p/free-sprites.html
+ * Fire: 			https://opengameart.org/content/wgstudio-fire-animation-loop
+ * Explosion: 		https://opengameart.org/content/explosion
+ * Metal Structure: https://opengameart.org/content/metal-grate-texture
+ * Metal Supports: 	https://opengameart.org/content/brown-metal-trim (And similar from the same author)
+ * Laser Flare: 	http://www.photos-public-domain.com/2011/11/19/bright-sun/
+ * Destructible Rock: textures.com
+ * Everything Else: Myself
  */
 
 #ifndef DEFS_H_
@@ -47,29 +53,28 @@
 #define EASE_IN_PERC 0.1f
 #define MOVE_ANIM_VEL 3
 #define ROCKET_SPEED 3.0f
-
 #define BOSS_LASER_DURATION 1500.0f
 
 //PATHS
-#define HITMARKER "hitmarker.png"
-#define FIRESPRITE "fire.png"
-#define POINT "point.png"
-#define PLAYERSPRITE "player.png"
-#define PROJECTILESPRITE "projectile.png"
-#define MISSILESPRITE "missile.png"
-#define MISSILEDROPSPRITE "missile_drop.png"
-#define EXPLOSIONSPRITE "exp.png"
-#define LARGEEXPLOSIONSPRITE "exp_large.png"
-#define TERRAIN1 "terrain1.png"
-#define BACKGROUND1 "bg_volcano.png"
-#define BOT_BASIC_SPRITE "6.png"
-#define BOSS_TAILSEGMENT_SPRITE "boss_tailsegment.png"
-#define BOSS_TAILSEGMENT_SPRITE_END "boss_tailsegment_end.png"
-#define BOSS_TAILSEGMENTCONNECTOR_SPRITE "boss_tailsegmentconnector.png"
-#define BOSS_HEAD_SPRITE "boss_head.png"
-#define BOSS_HEAD_SPRITE_ALTERNATIVE "boss_head_alt.png"
-#define LASER_SPRITE "laser_sprite.png"
-#define LASER_IMPACT_SPRITE "laser_impact.png"
+#define HITMARKER "resource/hitmarker.png"
+#define FIRESPRITE "resource/fire.png"
+#define POINT "resource/point.png"
+#define PLAYERSPRITE "resource/player.png"
+#define PROJECTILESPRITE "resource/projectile.png"
+#define MISSILESPRITE "resource/missile.png"
+#define MISSILEDROPSPRITE "resource/missile_drop.png"
+#define EXPLOSIONSPRITE "resource/exp.png"
+#define LARGEEXPLOSIONSPRITE "resource/exp_large.png"
+#define TERRAIN1 "resource/terrain1.png"
+#define TERRAIN1_MASK "resource/terrain1_msk.png"
+#define BACKGROUND1 "resource/bg_volcano.png"
+#define BOSS_TAILSEGMENT_SPRITE "resource/boss_tailsegment.png"
+#define BOSS_TAILSEGMENT_SPRITE_END "resource/boss_tailsegment_end.png"
+#define BOSS_TAILSEGMENTCONNECTOR_SPRITE "resource/boss_tailsegmentconnector.png"
+#define BOSS_HEAD_SPRITE "resource/boss_head.png"
+#define BOSS_HEAD_SPRITE_ALTERNATIVE "resource/boss_head_alt.png"
+#define LASER_SPRITE "resource/laser_sprite.png"
+#define LASER_IMPACT_SPRITE "resource/flare_01_0.png"
 
 //COLORS
 #define TRANSPARENT 16777215

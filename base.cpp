@@ -76,7 +76,10 @@ Vector2 Camera::getCenter() {
 }
 
 GameWindow::GameWindow(void) {
-
+	renderer = NULL;
+	win = NULL;
+	camera = NULL;
+	drawrect = NULL;
 }
 
 int GameWindow::init() {
@@ -127,6 +130,14 @@ Vector2 GameWindow::getMousePosition() {
 	ret.x = mx + camera->ViewPortOffset.x;
 	ret.y = my + camera->ViewPortOffset.y;
 	return ret;
+}
+
+void GameWindow::clear() {
+	SDL_RenderClear(renderer);
+}
+
+void GameWindow::present() {
+	SDL_RenderPresent(renderer);
 }
 
 //====================================================================
@@ -274,7 +285,6 @@ Image::Image(GameWindow* gw) : Object(gw) {
 }
 
 Image::~Image() {
-	delete tex; //might not need to do this
 }
 
 void Image::loadTexture(const char* path) {
@@ -319,7 +329,6 @@ AdvImage::AdvImage(GameWindow* gw) : Image(gw) {
 }
 
 AdvImage::~AdvImage() {
-	delete tex; //might not need to do this
 }
 
 void AdvImage::draw() {
@@ -342,7 +351,7 @@ void AdvImage::setFromTo(Vector2 from, Vector2 to, bool height) {
 		this->pos.x -= this->texr.w * 0.5f;
 	}
 	else {
-		cout<<"Not implemeted"<<endl;
+		cout<<"setToFrom width not implemeted"<<endl;
 	}
 }
 

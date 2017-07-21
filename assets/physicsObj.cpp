@@ -3,10 +3,7 @@
 physicsObj::physicsObj(GameWindow* gw) : Object(gw) {
 	this->gravity = true;
 	this->friction = true;
-	this->vel;
-	vel.x = vel.y = 0;
-	col.x=42;
-	col.y=42;
+	col.set(42,42);
 }
 
 void physicsObj::update(terrain* ter) {
@@ -26,8 +23,7 @@ void physicsObj::accelerate(float x, float y){
 }
 
 void physicsObj::setCol(float x, float y) {
-	col.x = x;
-	col.y = y;
+	col.set(x,y);
 }
 
 bool physicsObj::grounded(terrain* ter) {

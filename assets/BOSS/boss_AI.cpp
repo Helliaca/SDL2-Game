@@ -11,6 +11,7 @@ boss_AI::boss_AI(GameWindow* gw, terrain* ter) : Object(gw) {
 		missiles.at(i)->dead = true;
 	}
 	rocketDropTimer.start();
+	spawnRockets = false;
 }
 
 boss_AI::~boss_AI() {
@@ -31,7 +32,7 @@ void boss_AI::update() {
 		 }
 	}
 
-	if(rocketDropTimer.elapsedTime() > 500) {
+	if(rocketDropTimer.elapsedTime() > 500 && spawnRockets) {
 		missile* m = new missile(this->gw, getRandInteger(300,LEVELWIDTH), 100, 0, ROCKET_SPEED*3, true);
 		rockets_drop.push_back(m);
 		rocketDropTimer.start();
@@ -119,6 +120,10 @@ void boss_AI::update() {
 				boss->head->setTilt(0);
 				launchAttack(NONE);
 			}
+			break;
+		}
+
+		default : {
 			break;
 		}
 

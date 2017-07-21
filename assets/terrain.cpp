@@ -1,11 +1,8 @@
 #include "terrain.h"
 
 terrain::terrain(GameWindow* gw) : Image(gw) {
-	//this->tex = SDL_CreateTexture(gw->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, SWIDTH, SHEIGHT);
-	//SDL_Texture* tmp = IMG_LoadTexture(this->gw->renderer, TERRAIN1);
-
-	terMask = IMG_Load("terrain1_msk.png");
-	sur = IMG_Load("terrain1.png");
+	terMask = IMG_Load(TERRAIN1_MASK);
+	sur = IMG_Load(TERRAIN1);
 	updateTexture();
 }
 

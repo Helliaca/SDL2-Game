@@ -26,7 +26,6 @@ animation::animation(GameWindow* gw) : Image(gw) {
 }
 
 animation::~animation() {
-	delete tex;
 	delete innerTimer;
 }
 
@@ -56,8 +55,7 @@ void animation::update() {
 }
 
 void animation::setPos(float x, float y) {
-	this->pos.x = x;
-	this->pos.y = y;
+	pos.set(x,y);
 }
 
 void animation::draw() {

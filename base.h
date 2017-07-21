@@ -76,7 +76,6 @@ class Camera {
 
 class GameWindow {
 	private:
-		int nothing;
 		SDL_Rect* drawrect;
 	public:
 		Camera* camera;
@@ -88,6 +87,8 @@ class GameWindow {
 		void drawOverride(SDL_Texture* tex, const SDL_Rect* srcrect, const SDL_Rect* dstrect);
 		void drawOverride(SDL_Texture* tex, const SDL_Rect* srcrect, const SDL_Rect* dstrect, const double angle, const SDL_Point* center, const SDL_RendererFlip flip);
 		Vector2 getMousePosition();
+		void clear();
+		void present();
 		GameWindow();
 		int init();
 };

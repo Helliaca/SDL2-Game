@@ -6,7 +6,7 @@
 #include "../missile.h"
 #include <vector>
 
-enum ATTACKS {LASER, ROCKETS, ROCKETS_DROP, NONE};
+enum ATTACKS {LASER, ROCKETS, NONE};
 
 class boss_AI : Object {
 	private:
@@ -23,6 +23,7 @@ class boss_AI : Object {
 		void laser();
 
 	public:
+		bool spawnRockets;
 		bool isBusy();
 		void update();
 		void draw();

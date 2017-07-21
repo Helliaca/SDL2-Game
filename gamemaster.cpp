@@ -14,10 +14,10 @@ Timer projtimer;
 
 Vector2 mousePos;
 
-vector<Object*> objs; //<- this doesn't work
 vector<projectile*> projs;
 vector<animation*> anims;
-void drawAllObjs();
+
+bool InputOutputManager(boss_AI* b, player* p, terrain* o);
 void drawAllProjs();
 void drawAllAnims();
 void updateAllProjs(terrain*);
@@ -42,42 +42,9 @@ void start() {
 	frametimer.start();
 	projtimer.start();
 	while(1) {
-		mousePos = win->getMousePosition();
-		const Uint8 *keys = SDL_GetKeyboardState(NULL);
-		SDL_Event e;
-		if ( SDL_PollEvent(&e) ) {
-			if (e.type == SDL_QUIT)	break;
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) break;
-			else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_1) {
-				b->launchAttack(LASER);
-			}
-			else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_2) {
-				b->launchAttack(ROCKETS);
-			}
-			else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_3) {
-				b->launchAttack(ROCKETS_DROP);
-			}
-		}
+		if(!InputOutputManager(b, p, o)) break;
 
-		//b->setPos(mousePos);
-		win->camera->follow(p->getPos());
-
-		if(SDL_MOUSEBUTTONDOWN && SDL_BUTTON(SDL_GetMouseState(NULL, NULL)) == 8) o->create_square(mousePos, 25); // looks like right mouse button is 8. SDL_BUTTON_RIGHT seems to be broken
-		if(SDL_MOUSEBUTTONDOWN && SDL_BUTTON(SDL_GetMouseState(NULL, NULL)) == SDL_BUTTON_LEFT && projtimer.elapsedTime()>300) {
-			projectile* np = new projectile(win);
-			np->setPos(p->getPos());
-			np->launch(mousePos);
-			projs.push_back(np);
-			projtimer.start();
-		}
-		if (keys[SDL_SCANCODE_W]) p->accelerate(0,-PLAYER_ACCEL_Y);
-		if (keys[SDL_SCANCODE_S]) p->accelerate(0,PLAYER_ACCEL_Y);
-		if (keys[SDL_SCANCODE_D]) p->accelerate(PLAYER_ACCEL_X,0);
-		if (keys[SDL_SCANCODE_A]) p->accelerate(-PLAYER_ACCEL_X,0);
-		//if (keys[SDL_SCANCODE_R]) b->head->tilt(1);
-		//if (keys[SDL_SCANCODE_T]) b->head->tilt(-1);
-
-		SDL_RenderClear(win->renderer);
+		win->clear(); //Clear GameWindow
 
 		//Draw everything
 		bg->draw();
@@ -86,39 +53,27 @@ void start() {
 		drawAllProjs();
 		drawAllAnims();
 		b->draw();
-		//drawAllObjs(); //<- this doesnt work :(
 
-		SDL_RenderPresent(win->renderer);
+		win->present(); //Show everything we've drawn in the last step
 
-		//Update objects dependant on frametime
+		//Update everything
 		updateAllAnims();
 		b->update();
 		p->update(o);
 		bg->update(win->camera->ViewPortOffset);
 		updateAllProjs(o);
 
-		while(frametimer.elapsedTime()<MIN_FRAMETIME) SDL_Delay(1); //Really low frametimes ruin physics :(
+		while(frametimer.elapsedTime()<MIN_FRAMETIME) SDL_Delay(1); //Really high framerates ruin physics :(
 		frametimer.start();
 	}
-	SDL_Delay(5000);
 }
 
 void drawAllAnims() {
-	for(int i=0; i<anims.size(); i++) {
-		anims[i]->draw();
-	}
-}
-
-void drawAllObjs() {
-	for(int i=0; i<objs.size(); i++) {
-		objs[i]->draw();
-	}
+	for(int i=0; i<anims.size(); i++) anims[i]->draw();
 }
 
 void drawAllProjs() {
-	for(int i=0; i<projs.size(); i++) {
-		projs[i]->draw();
-	}
+	for(int i=0; i<projs.size(); i++) projs[i]->draw();
 }
 
 void updateAllProjs(terrain* ter) {
@@ -147,5 +102,40 @@ void updateAllAnims() {
 		}
 		anims[i]->update();
 	}
+}
+
+bool InputOutputManager(boss_AI* b, player* p, terrain* o) {
+	mousePos = win->getMousePosition();
+	const Uint8 *keys = SDL_GetKeyboardState(NULL);
+	SDL_Event e;
+	if ( SDL_PollEvent(&e) ) {
+		if (e.type == SDL_QUIT)	return false;
+		else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) return false;
+		else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_1) {
+			b->launchAttack(LASER);
+		}
+		else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_2) {
+			b->launchAttack(ROCKETS);
+		}
+		else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_3) {
+			b->spawnRockets = !b->spawnRockets;
+		}
+	}
+
+	win->camera->follow(p->getPos());
+
+	if(SDL_MOUSEBUTTONDOWN && SDL_BUTTON(SDL_GetMouseState(NULL, NULL)) == 8) o->create_square(mousePos, 25); // looks like right mouse button is 8. SDL_BUTTON_RIGHT seems to be broken
+	if(SDL_MOUSEBUTTONDOWN && SDL_BUTTON(SDL_GetMouseState(NULL, NULL)) == SDL_BUTTON_LEFT && projtimer.elapsedTime()>300) {
+		projectile* np = new projectile(win);
+		np->setPos(p->getPos());
+		np->launch(mousePos);
+		projs.push_back(np);
+		projtimer.start();
+	}
+	if (keys[SDL_SCANCODE_W]) p->accelerate(0,-PLAYER_ACCEL_Y);
+	if (keys[SDL_SCANCODE_S]) p->accelerate(0,PLAYER_ACCEL_Y);
+	if (keys[SDL_SCANCODE_D]) p->accelerate(PLAYER_ACCEL_X,0);
+	if (keys[SDL_SCANCODE_A]) p->accelerate(-PLAYER_ACCEL_X,0);
+	return true;
 }
 

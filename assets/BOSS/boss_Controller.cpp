@@ -3,10 +3,8 @@
 boss_Controller::boss_Controller(GameWindow* gw, terrain* ter) : Object(gw) {
 	bossNavigator = new nav_graph(this);
 	this->ter = ter;
-	tailOffset.x=-100;
-	tailOffset.y=30;
-	laserOffset.x=120;
-	laserOffset.y=160;
+	tailOffset.set(-100, 30);
+	laserOffset.set(120, 160);
 	this->head = new boss_Head(gw);
 	this->tail = new boss_TailSegment(gw);
 	this->tail->buildTail(6, NULL);
@@ -21,7 +19,7 @@ boss_Controller::boss_Controller(GameWindow* gw, terrain* ter) : Object(gw) {
 	laser_impact2->setAnim(LASER_IMPACT_SPRITE, 1, 4, 90.0f, 1);
 	laser_impact2->loop = true;
 	laser_flare = new AdvImage(gw);
-	laser_flare->loadTexture("flare_01_0.png");
+	laser_flare->loadTexture(LASER_IMPACT_SPRITE);
 	idleAngle = 0;
 	laserOn = false;
 	tailWiggleAmplitude = 1; //These values aremultiplied with base values from defs.h
