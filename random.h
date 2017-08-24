@@ -9,10 +9,12 @@ inline void init() {
 	srand(time(NULL));
 }
 
+//Return random float
 inline float getRandDecimal() {
   return (float)rand()/RAND_MAX;
 }
 
+//Return random integer in given range
 inline int getRandInteger(int min, int max) {
 	return min + rand() % (max - min);
 }

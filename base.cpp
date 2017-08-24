@@ -2,10 +2,15 @@
 
 using namespace std;
 
+
+//=================GENERAL FUNCTIONS=========================
+
+//Round a number to three decimals
 double round_3dec(double val) {
 	return round(val * 100.0 ) / 100.0;
 }
 
+//Get the color of a pixel on a surface
 Uint32 get_pixel32( SDL_Surface *surface, int x, int y )
 {
     //Convert the pixels to 32 bit
@@ -15,6 +20,7 @@ Uint32 get_pixel32( SDL_Surface *surface, int x, int y )
     return pixels[ ( y * surface->w ) + x ];
 }
 
+//Set a pixel of a surface to a certain color
 void put_pixel32( SDL_Surface *surface, int x, int y, Uint32 pixel )
 {
     //Convert the pixels to 32 bit
@@ -24,27 +30,32 @@ void put_pixel32( SDL_Surface *surface, int x, int y, Uint32 pixel )
     pixels[ ( y * surface->w ) + x ] = pixel;
 }
 
+//Convert pixel color from number to actual color
 void colorRGBA::fromPixel32(Uint32 pixel, const SDL_PixelFormat* format) {
 	SDL_GetRGBA(pixel, format, &r, &g, &b, &a);
 }
 
+//Return smaller of two numbers
 int min(int a, int b) {
 	if(a<b) return a;
 	return b;
 }
 
+//Return larger of two numbers
 int max(int a, int b) {
 	if(a>b) return a;
 	return b;
 }
 
+//Clamp a number to a minimum and maximum
 float clamp(float value, float min, float max) {
 	if(value<min) return min;
 	if(value>max) return max;
 	return value;
 }
 
-//====================================================================
+
+//=================TIMER METHODS=========================
 
 void Timer::start() {
 	stime = (int)SDL_GetTicks();
@@ -54,7 +65,8 @@ int Timer::elapsedTime() {
 	return ((int)SDL_GetTicks()) - stime;
 }
 
-//====================================================================
+
+//=================CAMERA AND GAMEWINDOW METHODS=========================
 
 void Camera::setViewPortOffset(Vector2 vpo) {
 	this->ViewPortOffset = vpo;
@@ -110,6 +122,7 @@ void GameWindow::draw(SDL_Texture* tex, const SDL_Rect* srcrect, const SDL_Rect*
 	SDL_RenderCopyEx(this->renderer, tex, srcrect, drawrect, angle, center, flip);
 }
 
+//The camera viewPortOffset will not be considered with the override functions
 void GameWindow::drawOverride(SDL_Texture* tex, const SDL_Rect* srcrect, const SDL_Rect* dstrect)
 {
 	SDL_RenderCopy(this->renderer, tex, srcrect, dstrect);
@@ -119,6 +132,7 @@ void GameWindow::drawOverride(SDL_Texture* tex, const SDL_Rect* srcrect, const S
 	SDL_RenderCopyEx(this->renderer, tex, srcrect, dstrect, angle, center, flip);
 }
 
+//Convert a Surface to a Texture
 SDL_Texture* GameWindow::textureFromSurface(SDL_Surface* sur) {
 	return SDL_CreateTextureFromSurface(this->renderer, sur);
 }
@@ -140,7 +154,8 @@ void GameWindow::present() {
 	SDL_RenderPresent(renderer);
 }
 
-//====================================================================
+
+//=================VECTOR2 METHODS=========================
 
 Vector2::Vector2() {
 	this->x = this->y = 0;
@@ -233,6 +248,7 @@ Vector2 Bezier(Vector2 start, Vector2 control, Vector2 end, float t) {
 	return start;
 }
 
+//Interpolates a Vector by value t
 Vector2 Lerp(Vector2 start, Vector2 end, float t) {
 	if(t<=0) return start;
 	if(t>=1) return end;
@@ -242,13 +258,16 @@ Vector2 Lerp(Vector2 start, Vector2 end, float t) {
 	return end;
 }
 
+//Interpolates a float by value t
 float Lerp(float start, float end, float t) {
 	if(t<=0) return start;
 	if(t>=1) return end;
 	return (end-start)*t + start;
 }
 
-//====================================================================
+
+//=================OBJECT METHODS=========================
+
 Object::Object(GameWindow* gw) {
 	this->tag = DEFAULTTAG;
 	this->gw = gw;
@@ -268,17 +287,18 @@ void Object::setPos(Vector2 pos) {
 	this->pos.y = pos.y;
 }
 
-Vector2 Object::getPos() {
-	return pos;
-}
-
 void Object::setPos(int x, int y) {
 	this->pos.x = x;
 	this->pos.y = y;
 }
 
+Vector2 Object::getPos() {
+	return pos;
+}
 
-//====================================================================
+
+//=================IMAGE METHODS=========================
+
 Image::Image(GameWindow* gw) : Object(gw) {
 	tex = NULL;
 	scale = 1;
@@ -321,7 +341,9 @@ void Image::setPosCenter(int x, int y){
 	this->pos.y = y - texr.h/2;
 }
 
-//====================================================================
+
+//=================ADVIMAGE METHODS=========================
+
 AdvImage::AdvImage(GameWindow* gw) : Image(gw) {
 	flip = SDL_FLIP_NONE;
 	center = NULL;

@@ -130,6 +130,7 @@ class Image : public Object {
 };
 
 //====================================================================
+//AdvImage is an Image but with a rotation angle and point
 
 class AdvImage : public Image {
 	protected:

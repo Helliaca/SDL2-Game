@@ -9,8 +9,8 @@
 
 GameWindow* win = new GameWindow();
 
-Timer frametimer;
-Timer projtimer;
+Timer frametimer;	//Timer to cap framerate
+Timer projtimer;	//Cooldown timer for shooting projectiles
 
 Vector2 mousePos;
 

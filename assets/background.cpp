@@ -14,5 +14,5 @@ void background::update(Vector2 ViewPortPos) {
 }
 
 void background::draw() {
-	gw->drawOverride(this->tex, NULL, &texr);
+	gw->drawOverride(this->tex, NULL, &texr); //Use drawOverride, because we consider the ViewPortOffset manually in update()
 }

@@ -29,6 +29,7 @@ animation::~animation() {
 	delete innerTimer;
 }
 
+//Set the animation to a certain frame
 void animation::setFrame(int frameNum) {
 	if(this->dir==0) { //from bottom right to top left (right to left)
 		this->setFrame(maxFrame - (frameNum % maxFrame)); //this wont work...
