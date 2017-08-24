@@ -1,12 +1,11 @@
 # SDL2-Game
 A small 2D, SDL2 Game written in C++ featuring destructive terrain, raycasts, tailphysics and more!
+
 This is what it looks like: https://www.youtube.com/watch?v=upb3DJJbQIM
 
-Only dependencies are the SDL2 and SDL2-image libraries.
+Only dependencies are the SDL2 and SDL2-image libraries. See [here](https://krother.gitbooks.io/objektorientierte-programmierung-mit-c/content/gitbook/SDL_unter_eclipse.html).
 
 All code was written by me and is public domain.
-
-Certain elements are heavily inspired by the Supreme Jeh'Oul bossfight from Wings of Vi (see https://www.youtube.com/watch?v=VD-y3-hH1do).
 
 # Controls
 - WASD to move the player
@@ -30,7 +29,7 @@ Healthbars and AI are missing, so you will have to control the boss/enemy yourse
 
 # Documentation:
 
-*Root directory*
+### Root directory
 
 The root directory contains what you might consider to be the 'game engine':
 - *defs.h*: All constant values used across other files, including file directories, window size etc.
@@ -40,7 +39,7 @@ The root directory contains what you might consider to be the 'game engine':
 - *base.cpp/.h*: Fundamental classes/functions used and inherited throughout the project. This includes: Timer, Vector2, Camera, GameWindow, Object, Image, AdvImage. Object being the base class for all Objects drawn on screen.
 
 
-*Assets directory*
+### Assets directory
 
 Includes more specialized files. All of these inherit from either the Object or Image class.
 - *animation*: Class for a spritesheet-animation. Used by explosion or fire aniamtions, aswells as the player sprite.
@@ -52,14 +51,14 @@ Includes more specialized files. All of these inherit from either the Object or 
 - *projectile*: Base class for physics-based projectiles.
 
 
-*assets/NAV directory*
+### assets/NAV directory
 
 Point- and Path-classes used for the Navigation of the Boss.
 Paths can have ease-in/-out aswell as linear, bezier or sine-curve interpolations.
 nav_graph creates and includes preset paths for the boss to navigate along.
 
 
-*assets/BOSS directory*
+### assets/BOSS directory
 
 All classes concerning the boss.
 - *boss_AI*: Main wrapper for the entire thing. Looks at what attack the boss is doing and executes it by calling boss_Controller methods.
@@ -67,3 +66,6 @@ All classes concerning the boss.
 - *boss_Head*: The main bulk of the boss' head.
 - *boss_TailSegment*: The small segments that constitute the boss' tail. Each segment has an angular and positional velocity aswell as an angular and positional acceleration. At a certain self-positonal-velocity the segments will accelerate towards the vector of said velocity. If this velocity is smaller than the given threshhold, the segments will accelerate towards their default position.
 - *boss_TailSegmentConnector*: The red connectors between segments.
+
+
+Certain elements are heavily inspired by the Supreme Jeh'Oul bossfight from Wings of Vi ([this one](https://www.youtube.com/watch?v=VD-y3-hH1do)).
