@@ -1,11 +1,12 @@
 # SDL2-Game
 A small 2D, SDL2 Game written in C++ featuring destructive terrain, raycasts, tailphysics and more!
+This is what it looks like: https://www.youtube.com/watch?v=upb3DJJbQIM
 
 Only dependencies are the SDL2 and SDL2-image libraries.
 
 All code was written by me and is public domain.
 
-Certain elements are heavily inspired by the Supreme Jeh'Oul bossfight from Wings of Vi (https://www.youtube.com/watch?v=VD-y3-hH1do).
+Certain elements are heavily inspired by the Supreme Jeh'Oul bossfight from Wings of Vi (see https://www.youtube.com/watch?v=VD-y3-hH1do).
 
 # Controls
 - WASD to move the player
