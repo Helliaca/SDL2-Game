@@ -1,6 +1,8 @@
 # SDL2-Game
 A small 2D, SDL2 Game written in C++ featuring destructive terrain, raycasts, tailphysics and more!
 
+![bsp_img](https://i.imgur.com/bT7p3lS.jpg)
+
 This is what it looks like: https://www.youtube.com/watch?v=upb3DJJbQIM
 
 Only dependencies are the SDL2 and SDL2-image libraries. See [here](https://krother.gitbooks.io/objektorientierte-programmierung-mit-c/content/gitbook/SDL_unter_eclipse.html).
